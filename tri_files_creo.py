@@ -3,6 +3,11 @@
 
 import os
 
+choose_folder = ''
+list_files = ''
+lasts_files = ''
+list_file_delete = ''
+
 def new_folder():
     try:
         choose_folder = input("Quel dossier traiter ? : ")
@@ -20,7 +25,7 @@ def new_folder():
             print("Vous devez entrer un choix entre Y et N")
             exit()
 
-def order_files(): 
+def order_files(list_files): 
     extension_max = '0'
     last_name_file = ''
     latest_file = ''
@@ -56,7 +61,7 @@ def order_files():
     return list_latest_file
 
 
-def file_to_delete():
+def file_to_delete(list_files, lasts_files):
     list_file_delete = []
     for file in list_files:
         if not file in lasts_files:
@@ -64,11 +69,10 @@ def file_to_delete():
     return list_file_delete
 
 
-def delete_file():
+def delete_file(list_file_delete):
     if len(list_file_delete) == 0:
-        print("\nAucuns fichiers à supprimer")
-        input("Pressez ENTER")
-        exit()
+        print("\nAucuns fichiers à supprimer\n")
+        return
     print(f"\nEtes vous sûr de vouloir supprimer le(s) {len(list_file_delete)} fichier(s) suivant(s) du dossier {choose_folder} ?")
     for i in list_file_delete:
         print(i)
@@ -81,21 +85,31 @@ def delete_file():
         for file in list_files:
             if not file in lasts_files:
                 os.chdir(choose_folder)
-                os.remove(file)
+                #os.remove(file)
         print(f"{len(list_file_delete)} fichiers supprimés, dossier traité.")
+        choose_folder = ''
+        return choose_folder
 
 
-choose_folder = new_folder()
-os.chdir(choose_folder)
-list_files = os.listdir()
-lasts_files = order_files()
-list_file_delete = file_to_delete()
-delete_file()
-print("\nFin : appuiez ENTER")
-input("")
+def start():
+    choose_folder = new_folder()
+    os.chdir(choose_folder)
+    list_files = os.listdir()
+    lasts_files = order_files(list_files)
+    list_file_delete = file_to_delete(list_files, lasts_files)
+    delete_file(list_file_delete)
+    another_folder()
 
-# choice = input("voulez vous traiter un autre dossier ?\n Y - N : ")
-# if choice.upper() == 'Y':
-#     start()
-# else:
-#     exit()
+
+def another_folder():
+    choice = input("voulez vous traiter un autre dossier ?\n Y - N : ")
+    if choice.upper() == 'Y':
+        start()
+    else:
+        exit()
+
+
+start()
+#delete_file(list_files, lasts_files, list_file_delete, choose_folder)
+#choose_folder = ''
+#another_folder()
