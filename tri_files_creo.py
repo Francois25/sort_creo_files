@@ -15,7 +15,6 @@ def new_folder():
         return choose_folder
 
     except:
-        #exit()
         choice = input("Dossier incorrect, voulez vous abandonner ?\n  Y - N : ")
         if choice.upper() == 'Y':
             exit()
@@ -23,7 +22,7 @@ def new_folder():
             new_folder()
         else:
             print("Vous devez entrer un choix entre Y et N")
-            exit()
+            start()
 
 def order_files(list_files): 
     extension_max = '0'
@@ -60,14 +59,12 @@ def order_files(list_files):
     list_latest_file.append(latest_file)
     return list_latest_file
 
-
 def file_to_delete(list_files, lasts_files):
     list_file_delete = []
     for file in list_files:
         if not file in lasts_files:
             list_file_delete.append(file)
     return list_file_delete
-
 
 def delete_file(list_file_delete, choose_folder, list_files, lasts_files):
     if len(list_file_delete) == 0:
@@ -90,7 +87,6 @@ def delete_file(list_file_delete, choose_folder, list_files, lasts_files):
         choose_folder = ''
         return choose_folder
 
-
 def start():
     choose_folder = new_folder()
     os.chdir(choose_folder)
@@ -100,7 +96,6 @@ def start():
     delete_file(list_file_delete, choose_folder, list_files, lasts_files)
     another_folder()
 
-
 def another_folder():
     choice = input("voulez vous traiter un autre dossier ?\n Y - N : ")
     if choice.upper() == 'Y':
@@ -108,4 +103,5 @@ def another_folder():
     else:
         exit()
  
+
 start()
