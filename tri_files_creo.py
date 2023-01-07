@@ -69,7 +69,7 @@ def file_to_delete(list_files, lasts_files):
     return list_file_delete
 
 
-def delete_file(list_file_delete, choose_folder):
+def delete_file(list_file_delete, choose_folder, list_files, lasts_files):
     if len(list_file_delete) == 0:
         print("\nAucuns fichiers à supprimer\n")
         return
@@ -97,7 +97,7 @@ def start():
     list_files = os.listdir()
     lasts_files = order_files(list_files)
     list_file_delete = file_to_delete(list_files, lasts_files)
-    delete_file(list_file_delete, choose_folder)
+    delete_file(list_file_delete, choose_folder, list_files, lasts_files)
     another_folder()
 
 
