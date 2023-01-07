@@ -85,7 +85,7 @@ def delete_file(list_file_delete, choose_folder):
         for file in list_files:
             if not file in lasts_files:
                 os.chdir(choose_folder)
-                #os.remove(file)
+                os.remove(file)
         print(f"{len(list_file_delete)} fichiers supprimés, dossier traité.")
         choose_folder = ''
         return choose_folder
