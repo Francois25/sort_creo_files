@@ -3,11 +3,6 @@
 
 import os
 
-choose_folder = ''
-list_files = ''
-lasts_files = ''
-list_file_delete = ''
-
 def new_folder():
     try:
         choose_folder = input("Quel dossier traiter ? : ")
@@ -27,7 +22,6 @@ def new_folder():
 def order_files(list_files): 
     extension_max = '0'
     last_name_file = ''
-    latest_file = ''
     list_latest_file=[]
 
     for file in list_files:
@@ -38,7 +32,7 @@ def order_files(list_files):
 
         # modification de l'extension sur 2 chiffres
         if len(extension) == 1:
-            extension = "0" + extension    
+            extension = extension.zfill(2)
         
         # Nom de fichier hors extension identique au dernier traité
         if name_file == last_name_file:
@@ -47,7 +41,7 @@ def order_files(list_files):
                 latest_file = file
 
         # Nom de fichier hors extension différent du dernier traité                        
-        elif name_file != last_name_file:
+        else:
             if last_name_file != '':
                 list_latest_file.append(latest_file)
             last_name_file = name_file
@@ -96,6 +90,7 @@ def start():
     delete_file(list_file_delete, choose_folder, list_files, lasts_files)
     another_folder()
 
+
 def another_folder():
     choice = input("voulez vous traiter un autre dossier ?\n Y - N : ")
     if choice.upper() == 'Y':
@@ -103,5 +98,4 @@ def another_folder():
     else:
         exit()
  
-
 start()
